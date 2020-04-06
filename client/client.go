@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"google.golang.org/grpc"
 	"io"
 	"log"
@@ -27,7 +28,7 @@ func main() {
 //客户端发送一次请求，服务端返回一次数据
 func Sample(client pb.CalculatorClient) {
 	resp1, _ := client.Add(context.Background(), &pb.TwoNum{A: 10, B: 20})
-	log.Println(resp1.C)
+	fmt.Println("普通模式： ", resp1.C, "\r\n")
 }
 
 //服务端流
@@ -42,8 +43,9 @@ func GetStream(client pb.CalculatorClient) {
 		if err != nil {
 			log.Fatalln(err.Error())
 		}
-		log.Println(resp2)
+		fmt.Println("服务端流： ", resp2.C)
 	}
+	fmt.Println("\r\n")
 }
 
 //客户端流
@@ -57,7 +59,7 @@ func PutStream(client pb.CalculatorClient) {
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
-	log.Println(resp3.C)
+	fmt.Println("客户端流： ", resp3.C, "\r\n")
 }
 
 //双向流
@@ -84,6 +86,6 @@ func DoubleStream(client pb.CalculatorClient) {
 		}
 	}()
 	for k := 0; k < 10; k++ {
-		log.Println(<-ch)
+		fmt.Println("双向流： ", <-ch)
 	}
 }
