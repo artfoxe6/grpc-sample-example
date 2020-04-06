@@ -1,4 +1,4 @@
-##### 要求
+## 如何运行
 1. go版本大于1.13
 2. 已经下载 protoc 编译器并放到环境变量中[参考链接](https://github.com/protocolbuffers/protobuf/releases)
 
