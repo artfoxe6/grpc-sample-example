@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package rpc.calculator.test;
+
+service Calculator {
+    //简单模式
+    rpc Add (TwoNum) returns (Response) {}
+
+    //服务端流
+    rpc GetStream (TwoNum) returns (stream Response) {}
+
+    //客户端流
+    rpc PutStream (stream OneNum) returns (Response) {}
+
+    //双向流
+    rpc DoubleStream (stream TwoNum) returns (stream Response) {}
+}
+
+message TwoNum {
+    int32 a = 1;
+    int32 b = 2;
+}
+message Response {
+    int32 c = 1;
+}
+message OneNum{
+    int32 a = 1;
+}
